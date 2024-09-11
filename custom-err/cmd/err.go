@@ -1,7 +1,6 @@
 package main
 
 import (
-	"crypto/ecdh"
 	"errors"
 	"net/http"
 
@@ -60,7 +59,7 @@ func (self *httpErrorHandler) Handler(err error, c echo.Context) {
 		}
 	} else {
 		he = &echo.HTTPError{
-			Code: self.getStatusCode(err),
+			Code:    self.getStatusCode(err),
 			Message: unwrapRecursive(err).Error(),
 		}
 	}
@@ -71,7 +70,7 @@ func (self *httpErrorHandler) Handler(err error, c echo.Context) {
 		message = map[string]interface{}{"message": err.Error()}
 	}
 
-	// Send Response 
+	// Send Response
 	if !c.Response().Committed {
 		if c.Request().Method == http.MethodHead {
 			err = c.NoContent(he.Code)
